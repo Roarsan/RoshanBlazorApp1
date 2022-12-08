@@ -1,0 +1,39 @@
+﻿@inject CartService CartService
+
+<div class="card w-50">
+
+    <div class="card-header">
+        <h5 class="card-title">@product.Id @product.ShoeName</h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Colour:@product.Colour Material:@product.Material</p>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Price:£@product.Price</li>
+            <li class="list-group-item">Type:@product.Type</li>
+            <li class="list-group-item">Discount:@product.DiscountedPrice</li>
+            <li class="list-group-item">Size:@product.Size</li>
+        </ul>
+
+          @if (DisplayBuyButton){
+            <button class="btn btn-primary" type="button" 
+            @onclick="()=> Buy(product.Id)">Buy</button>
+            }
+
+    </div>
+</div>
+@code {
+    [EditorRequired]
+    [Parameter]
+    public Product product { get; set; } = new Product();
+
+    [Parameter]
+    public bool DisplayBuyButton { get; set; } = true;
+
+    private void Buy(int Id)
+    {
+        CartService.AddProductToCart(Id);
+    }
+
+
+}

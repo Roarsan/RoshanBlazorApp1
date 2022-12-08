@@ -1,0 +1,25 @@
+﻿@using RoshanBlazorApp1.Models
+@using RoshanBlazorApp1.Services
+@inject CartService CartService
+
+<h3>Product List</h3>
+@foreach(Product item in Products)
+{
+   <ProductView product="item"> </ProductView>
+}
+
+@code 
+{
+    [EditorRequired]
+    [Parameter]
+    public List<Product> Products { get; set; } = ProductService.Products.ToList();
+
+    
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Products = ProductService.GetProducts();
+    }
+}
